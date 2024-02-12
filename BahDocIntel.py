@@ -1,20 +1,23 @@
 from azure.ai.formrecognizer import DocumentAnalysisClient
 from azure.core.credentials import AzureKeyCredential
-import json
+import json, requests
 
 # Import endpoints and api key
 from env import azure_endpoint, api_key
 
 # Path to PDF file
-pdf_path = "sample2_medical_report.pdf"
-pdf_path = "HISTOPATHOLOGY-COLONOSCOPY-WITH-POLYPECTOMY-BIOPSY-report-format-example-sample-template-Drlogy-lab-report.pdf"
+#pdf_path = "sample2_medical_report.pdf"
+pdf_path = "https://images.drlogy.com/assets/uploads/lab/pdf/HISTOPATHOLOGY-COLONOSCOPY-WITH-POLYPECTOMY-BIOPSY-report-format-example-sample-template-Drlogy-lab-report.pdf"
 
 # Create Doc Intelligence Client
 client = DocumentAnalysisClient(azure_endpoint, AzureKeyCredential(api_key))
 
 # Read the PDF file
-with open(pdf_path, "rb") as pdf_file:
-    pdf_bytes = pdf_file.read()
+if pdf_path[0:6]=="https:":
+    pdf_bytes = requests.get(pdf_path)
+else:
+    with open(pdf_path, "rb") as pdf_file:
+       pdf_bytes = pdf_file.read()
 
 # Analyze the document
 poller = client.begin_analyze_document("prebuilt-document", pdf_bytes)
