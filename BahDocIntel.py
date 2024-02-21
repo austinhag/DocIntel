@@ -11,8 +11,8 @@ start_time = time.time()
 #pdf_path = "sample2_medical_report.pdf"
 pdf_path = "https://images.drlogy.com/assets/uploads/lab/pdf/HISTOPATHOLOGY-COLONOSCOPY-WITH-POLYPECTOMY-BIOPSY-report-format-example-sample-template-Drlogy-lab-report.pdf"
 
-model_type = "prebuilt-document"
-#model_type = "prebuilt-read"
+#model_type = "prebuilt-document"
+model_type = "prebuilt-read"
 
 # Create Doc Intelligence Client
 client = DocumentAnalysisClient(azure_endpoint, AzureKeyCredential(api_key))
