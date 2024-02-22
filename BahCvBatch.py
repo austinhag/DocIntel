@@ -33,9 +33,6 @@ max_workers = 30
 
 start_time = time.time()
 
-# Setup CV prediction client
-computervision_client = ComputerVisionClient(cv_endpoint, CognitiveServicesCredentials(cv_api_key))
-
 def process_page(i, frame):
     print(f"Processing page {i}...")
     
@@ -104,8 +101,10 @@ def process_page(i, frame):
 
     # Return the page number and OCR text
     return ([i, ocr_text])
-            
+
 def main():
+    
+    print(f"This machine has {os.cpu_count()} CPU cores")
     start_time = time.time()
 
     # Ensure the output directory exists
